@@ -1,5 +1,5 @@
-import $api from '../http/api';
-import defaultMenu from '../config/menu';
+// import $api from '../http/api';
+// import defaultMenu from '@/config/menu';
 import {
   SET_ATTR,
   INIT,
@@ -9,7 +9,7 @@ import {
   FETCH_MENU,
   SETTING_MENU,
 } from './types';
-import { MENU_GET_MODE } from '../config';
+// import { MENU_GET_MODE } from '../config';
 
 export default {
   [INIT]({ commit, dispatch }) {
@@ -122,32 +122,32 @@ export default {
    * 其方法和[FETCH_MENU]选其一
    */
   [SETTING_MENU]({ commit, state, dispatch }) {
-    if (MENU_GET_MODE === 'remote') {
+    // if (MENU_GET_MODE === 'remote') {
       return dispatch(FETCH_MENU);
-    }
-    const recursionMenu = (data) => {
-      let some = false;
-      const newData = [];
-      data.forEach((item) => {
-        if (item.children && item.children.length) {
-          const childrens = recursionMenu(item.children);
-          if (childrens) {
-            item.children = childrens;
-            some = true;
-            newData.push(item);
-          }
-        } else if (!item.code || state.permission.indexOf(item.code) >= 0) {
-          some = true;
-          newData.push(item);
-        }
-      });
-      if (some) return newData;
-      return null;
-    };
-    const menu = recursionMenu(defaultMenu);
-    commit(SET_ATTR, {
-      menu,
-    });
-    return Promise.resolve();
+    // }
+    // const recursionMenu = (data) => {
+    //   let some = false;
+    //   const newData = [];
+    //   data.forEach((item) => {
+    //     if (item.children && item.children.length) {
+    //       const childrens = recursionMenu(item.children);
+    //       if (childrens) {
+    //         item.children = childrens;
+    //         some = true;
+    //         newData.push(item);
+    //       }
+    //     } else if (!item.code || state.permission.indexOf(item.code) >= 0) {
+    //       some = true;
+    //       newData.push(item);
+    //     }
+    //   });
+    //   if (some) return newData;
+    //   return null;
+    // };
+    // const menu = recursionMenu(defaultMenu);
+    // commit(SET_ATTR, {
+    //   menu,
+    // });
+    // return Promise.resolve();
   },
 };

@@ -73,9 +73,9 @@ export function replaceUrlPlaceholder(url, handleCallback) {
 function capitalizeFirstLetter(string) {
   return string.charAt(0) + string.slice(1);
 }
-export function handleRequireContext(requireContext, handle) {
-  requireContext.keys().forEach((key) => {
-    const context = requireContext(key);
+export function requireContext(rContext, handle) {
+  rContext.keys().forEach((key) => {
+    const context = rContext(key);
     // 因为得到的file格式是: `./filename.js`, 所以这里我们去掉头和尾，只保留真正的文件名: `filename`
     const name = capitalizeFirstLetter(key.replace(/^\.\//, '').replace(/\.\w+$/, ''));
     if (handle) handle(name, context);

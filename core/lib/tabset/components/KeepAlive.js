@@ -1,4 +1,4 @@
-import { isDef } from '@/util';
+import { isDef } from '../util';
 
 function isAsyncPlaceholder(node) {
   return node.isComment && node.asyncFactory;

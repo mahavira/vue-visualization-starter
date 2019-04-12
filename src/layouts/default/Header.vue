@@ -28,8 +28,8 @@
   </header>
 </template>
 <script>
-import { TOGGLE_COMMON_VIEW } from '@/store/types';
-import { PROJECT_NAME } from '@/config';
+import { TOGGLE_COMMON_VIEW } from '../store/types';
+import { PROJECT_NAME } from '../config';
 
 export default {
   name: 'LxHeader',

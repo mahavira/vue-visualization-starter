@@ -7,11 +7,11 @@
 </transition>
 </template>
 <script>
-import { SET_ATTR } from '@/store/types';
-import ServiceList from '@/views/common/ServiceList.vue';
-import MessageList from '@/views/common/MessageList.vue';
-import Userinfo from '@/views/common/Userinfo.vue';
-import Preference from '@/views/common/Preference.vue';
+import { SET_ATTR } from '../store/types';
+import ServiceList from '../views/common/ServiceList.vue';
+import MessageList from '../views/common/MessageList.vue';
+import Userinfo from '../views/common/Userinfo.vue';
+import Preference from '../views/common/Preference.vue';
 
 export default {
   name: 'LxCommonView',

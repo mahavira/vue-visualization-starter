@@ -1,4 +1,4 @@
-import { isString, isArray, isFunction } from '@/util';
+import { isString, isArray, isFunction } from '../../util';
 
 export default store => ({
   check(action, strict = true) {

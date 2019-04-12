@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import Echart from '@/components/Echart.vue';
+import Echart from '../components/Echart.vue';
 
 describe('Echart.vue', () => {
   it('renders props.msg when passed', () => {

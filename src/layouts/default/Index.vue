@@ -27,8 +27,8 @@
 </section>
 </template>
 <script>
-import { TOGGLE_SIDEBAR } from '@/store/types';
-import { scrollToTop } from '@/util';
+import { TOGGLE_SIDEBAR } from '../store/types';
+import { scrollToTop } from '../util';
 import LxHeader from './Header.vue';
 import LxMenuList from './MenuList.vue';
 import LxBreadcrumb from './Breadcrumb.vue';

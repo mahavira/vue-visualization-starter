@@ -1,18 +1,19 @@
 import { MessageBox, Loading } from 'element-ui';
-import store from '@/store';
-import axios from '@/http';
-import { INIT, CLEAR_TOKEN, SET_TOKEN } from '@/store/types';
-import { HOME_PATH, LOGIN_URL, LOGOUT_URL, LOGOUT_URL_API, AUTH_PATH, AUTH_URL, CLIENT_ID } from '@/config';
-import { parseJWT } from '@/util';
-import LoadingBar from '@/components/LoadingBar';
+import store from '../store';
+import axios from '../http';
+import { CLEAR_TOKEN, SET_TOKEN } from '../store/types';
+import { HOME_PATH, LOGIN_URL, LOGOUT_URL, LOGOUT_URL_API, AUTH_PATH, AUTH_URL, CLIENT_ID } from '../../src/config';
+import { parseJWT, requireContext } from '../util';
+import LoadingBar from '../components/LoadingBar';
 import router from './instance';
-import updateBreadcrumb from './breadcrumb';
 import updateDocumentTitle from './documentTitle';
-
 /**
- * 检查当前路由是否需要授权访问
+ * 动态引入自定义过滤器
  */
-const checkRequireAuth = to => to.matched.some(record => record.meta.requireAuth !== false);
+const middlewares = [];
+requireContext(require.context('../../src/middleware', false, /\.js$/), (name, context) => {
+  middlewares.push(context.default || context);
+});
 /**
  * 显示隐藏全局加载提示
  */
@@ -72,7 +73,7 @@ const fetchAccessToken = async (code) => {
 /**
  * 重定向去登录
  */
-router.login = (state, next) => {
+router.login = (state) => {
   const queryData = {
     client_id: CLIENT_ID,
     response_type: 'code',
@@ -82,7 +83,6 @@ router.login = (state, next) => {
   const query = Object.keys(queryData).map(k => `${k}=${queryData[k]}`).join('&');
   const loginUrl = `${LOGIN_URL}${LOGIN_URL.indexOf('?') < 0 ? '?' : '&'}${query}`;
   if (/^http/.test(loginUrl)) window.location = loginUrl;
-  else if (next) next(loginUrl);
   else router.push(loginUrl);
 };
 /**
@@ -107,6 +107,11 @@ router.logout = () => {
  * 路由前置守卫
  */
 router.beforeEach(async (to, from, next) => {
+  console.log(router, to);
+  // if (!to.matched.length) {
+  //   next();
+  //   return;
+  // }
   /**
    * 检验是否登录回调中
    */
@@ -125,26 +130,15 @@ router.beforeEach(async (to, from, next) => {
     }
     return;
   }
-  LoadingBar.start();
-  if (checkRequireAuth(to)) {
-    if (!store.state.token) {
-      router.login(to.fullPath, next);
-      return;
-    }
-    if (!store.state.inited) {
-      loading.show('加载中');
-      try {
-        await store.dispatch(INIT);
-        loading.close();
-      } catch (e) {
-        loading.close();
-        showError(`服务初始失败！${e.message}`);
-        return;
-      }
-    }
+  try {
+    const proMiddleware = middlewares.map(middleware => middleware(router.app, to, from));
+    console.log(proMiddleware);
+    await Promise.all(proMiddleware);
+  } catch (e) {
+    console.log(e);
   }
+  LoadingBar.start();
   next();
-  updateBreadcrumb(to);
   updateDocumentTitle(to);
 });
 router.afterEach(() => {

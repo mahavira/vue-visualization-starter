@@ -8,7 +8,7 @@ import {
   API_BASE_URL,
   API_REQUEST_TIMEOUT,
   AUTH_KEY,
-} from '../config';
+} from '../../src/config';
 
 // import './mock'; // mock 数据
 

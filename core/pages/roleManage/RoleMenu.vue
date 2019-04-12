@@ -23,7 +23,7 @@
 </template>
 <script>
 import uniq from 'lodash/fp/uniq';
-// import menus from '@/config/menu';
+// import menus from '../config/menu';
 
 export default {
   name: 'RoleMenu',

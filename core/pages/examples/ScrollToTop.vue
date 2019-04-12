@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import BackToTop from '@/components/BackToTop.vue';
+import BackToTop from '../components/BackToTop.vue';
 
 export default {
   name: 'ExampleScrollToTop',

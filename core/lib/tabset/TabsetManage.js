@@ -1,6 +1,6 @@
-import store from '@/store';
-import router from '@/router';
-import { isString, isArray } from '@/util';
+import store from '../store';
+import router from '../router';
+import { isString, isArray } from '../util';
 import {
   ADD,
   REMOVE,
