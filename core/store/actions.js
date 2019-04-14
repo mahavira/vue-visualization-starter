@@ -1,25 +1,28 @@
-// import $api from '../http/api';
-// import defaultMenu from '@/config/menu';
+import http from '../http';
 import {
   SET_ATTR,
   INIT,
-  FETCH_USERINFO,
   FETCH_PERMISSION,
-  FETCH_USERROLE,
   FETCH_MENU,
   SETTING_MENU,
-} from './types';
-// import { MENU_GET_MODE } from '../config';
 
+} from './types';
+import {
+  MENU_GET_MODE,
+  PERMISSION_URL_API,
+  MENU_URL_API,
+} from '../../src/config';
+import { requireContext } from '../util';
+
+let defaultMenu = [];
+requireContext(require.context('../../src/modules', true, /category\.js$/), (name, context) => {
+  defaultMenu = defaultMenu.concat(context.default || context);
+});
 export default {
   [INIT]({ commit, dispatch }) {
     return Promise.all([
-      // 已从jwt中读取
-      // dispatch(FETCH_USERINFO),
       // 加载权限
       dispatch(FETCH_PERMISSION),
-      // 加载角色信息
-      dispatch(FETCH_USERROLE),
       // 加载并设置主菜单
       dispatch(SETTING_MENU),
     ]).then(() => {
@@ -29,30 +32,12 @@ export default {
     });
   },
   /**
-   * 获取用户信息
-   */
-  [FETCH_USERINFO]({ commit }) {
-    return new Promise((resolve, reject) => {
-      $api.userinfo().then(({ data }) => {
-        if (data.status !== 'OK') {
-          reject(data);
-          return;
-        }
-        commit(SET_ATTR, {
-          userinfo: data.data,
-        });
-        resolve();
-      }, reject);
-    });
-  },
-  /**
    * 获取用户权限
    */
   [FETCH_PERMISSION]({ state, commit }) {
+    if (!PERMISSION_URL_API) return Promise.resolve();
     return new Promise((resolve, reject) => {
-      $api.userPermission({
-        userCode: state.userinfo.user_code,
-      }).then(({ data }) => {
+      http.get(`${PERMISSION_URL_API}/${state.userinfo.user_code}`).then(({ data }) => {
         if (data.status !== 'OK') {
           reject(data);
           return;
@@ -66,36 +51,13 @@ export default {
     });
   },
   /**
-   * 获取用户角色信息
-   */
-  async [FETCH_USERROLE]({ state, commit }) {
-    try {
-      const { data } = await $api.userRole({
-        userCode: state.userinfo.user_code,
-      });
-      if (data && data.status === 'OK') {
-        commit(SET_ATTR, {
-          userinfo: Object.assign({}, state.userinfo, {
-            role: data.data,
-          }),
-          permission: [...state.permission, ...data.data],
-        });
-        return Promise.resolve();
-      }
-      throw new Error('invlid');
-    } catch (e) {
-      return Promise.reject(e);
-    }
-  },
-  /**
    * 获取用户菜单
    * 其方法和[SETTING_MENU]选其一
    */
   [FETCH_MENU]({ commit, state }) {
+    if (!MENU_URL_API) return Promise.resolve();
     return new Promise((resolve, reject) => {
-      $api.userMenu({
-        userCode: state.userinfo.user_code,
-      }).then(({ data }) => {
+      http.get(`${MENU_URL_API}/${state.userinfo.user_code}`).then(({ data }) => {
         if (data.status !== 'OK') {
           reject(data);
           return;
@@ -122,32 +84,32 @@ export default {
    * 其方法和[FETCH_MENU]选其一
    */
   [SETTING_MENU]({ commit, state, dispatch }) {
-    // if (MENU_GET_MODE === 'remote') {
+    if (MENU_GET_MODE === 'remote') {
       return dispatch(FETCH_MENU);
-    // }
-    // const recursionMenu = (data) => {
-    //   let some = false;
-    //   const newData = [];
-    //   data.forEach((item) => {
-    //     if (item.children && item.children.length) {
-    //       const childrens = recursionMenu(item.children);
-    //       if (childrens) {
-    //         item.children = childrens;
-    //         some = true;
-    //         newData.push(item);
-    //       }
-    //     } else if (!item.code || state.permission.indexOf(item.code) >= 0) {
-    //       some = true;
-    //       newData.push(item);
-    //     }
-    //   });
-    //   if (some) return newData;
-    //   return null;
-    // };
-    // const menu = recursionMenu(defaultMenu);
-    // commit(SET_ATTR, {
-    //   menu,
-    // });
-    // return Promise.resolve();
+    }
+    const recursionMenu = (data) => {
+      let some = false;
+      const newData = [];
+      data.forEach((item) => {
+        if (item.children && item.children.length) {
+          const childrens = recursionMenu(item.children);
+          if (childrens) {
+            item.children = childrens;
+            some = true;
+            newData.push(item);
+          }
+        } else if (!item.code || state.permission.indexOf(item.code) >= 0) {
+          some = true;
+          newData.push(item);
+        }
+      });
+      if (some) return newData;
+      return null;
+    };
+    const menu = recursionMenu(defaultMenu);
+    commit(SET_ATTR, {
+      menu,
+    });
+    return Promise.resolve();
   },
 };

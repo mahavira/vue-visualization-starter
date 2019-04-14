@@ -34,12 +34,18 @@ import Log from './lib/log';
  * 日记管理
  */
 import Perf from './lib/perf';
+/**
+ * mock 数据
+ */
+import '../src/mock/';
 
 Vue.use(ElementUI);
 Vue.use(Permission, store);
 Vue.use(Log, LOG_OPTS);
 Vue.use(Perf);
 Vue.config.productionTip = false;
+
+
 /**
  * 动态引入自定义指令
  */

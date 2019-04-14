@@ -10,12 +10,9 @@ import {
   AUTH_KEY,
 } from '../../src/config';
 
-// import './mock'; // mock 数据
-
 axios.defaults.baseURL = API_HOST + API_BASE_URL;
 axios.defaults.timeout = API_REQUEST_TIMEOUT;
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
-axios.defaults.headers.common[AUTH_KEY] = store.state.token;
 
 /**
  * request 拦截

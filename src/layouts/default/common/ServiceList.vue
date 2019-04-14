@@ -15,7 +15,7 @@
     </transition-stagger>
 </template>
 <script>
-import TransitionStagger from '../components/Stagger.vue';
+import TransitionStagger from '../../../components/Stagger.vue';
 
 const services = [
   {

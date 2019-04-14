@@ -28,8 +28,7 @@
   </header>
 </template>
 <script>
-import { TOGGLE_COMMON_VIEW } from '../store/types';
-import { PROJECT_NAME } from '../config';
+import { PROJECT_NAME } from '../../config';
 
 export default {
   name: 'LxHeader',
@@ -45,7 +44,7 @@ export default {
   },
   methods: {
     openedCommonView(e) {
-      this.$store.commit(TOGGLE_COMMON_VIEW, e);
+      this.$store.commit('TOGGLE_COMMON_VIEW', e);
     },
   },
 };

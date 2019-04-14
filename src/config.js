@@ -33,7 +33,7 @@ export const HOME_PATH = '/';
  * local 从本地读取
  * remote 从远程读取
  */
-export const MENU_GET_MODE = 'remote';
+export const MENU_GET_MODE = 'local';
 /**
  * 默认加载的模块
  */
@@ -85,13 +85,23 @@ export const LOGOUT_URL_API = '/user/logout'; // 本地模拟测试
 /**
  * PUP退出登录URL
  */
-export const LOGOUT_URL = '/logout'; // 本地模拟测试
+export const LOGOUT_URL = '/'; // 本地模拟测试
 // export const LOGOUT_URL = 'http://221.2.140.133:8600/user-asserver/logout?redirectUrl=';
 /**
  * PUP登录基本URL
  */
 export const LOGIN_URL = '/login'; // 本地模拟测试
 // export const LOGIN_URL = 'http://221.2.140.133:8600/user-asserver/authorize';
+/**
+ * 权限获取URL
+ * 值为空时不请求
+ */
+export const PERMISSION_URL_API = '';
+/**
+ * 菜单获取URL
+ * 值为空时不请求
+ */
+export const MENU_URL_API = '';
 /**
  * (子)系统PUP登录标识，跳转至登录时附带
  */

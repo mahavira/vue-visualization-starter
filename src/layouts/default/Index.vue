@@ -7,19 +7,16 @@
     </aside>
     <section class="lx-container lx-vertical">
       <!-- <tabset/> -->
-      <div class="lx-breadcrumb">
+      <!-- <div class="lx-breadcrumb">
         <a href="javascript:;" class="lx-menu-ctrl" @click="onSidebar">
           <i class="el-icon-menu"></i>
         </a>
         <lx-breadcrumb/>
-      </div>
+      </div> -->
       <main class="lx-main" ref="lx-main">
         <transition name="fade-transform" mode="out-in">
           <router-view :key="$route.fullPath"/>
         </transition>
-        <!-- <tabset-keep-alive>
-          <router-view :key="$route.fullPath"/>
-        </tabset-keep-alive> -->
       </main>
     </section>
   </section>
@@ -27,8 +24,7 @@
 </section>
 </template>
 <script>
-import { TOGGLE_SIDEBAR } from '../store/types';
-import { scrollToTop } from '../util';
+import { scrollToTop } from '../../util';
 import LxHeader from './Header.vue';
 import LxMenuList from './MenuList.vue';
 import LxBreadcrumb from './Breadcrumb.vue';
@@ -47,7 +43,7 @@ export default {
   },
   methods: {
     onSidebar() {
-      this.$store.commit(TOGGLE_SIDEBAR);
+      this.$store.commit('TOGGLE_SIDEBAR');
     },
   },
 };

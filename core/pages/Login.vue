@@ -79,7 +79,11 @@ export default {
       setTimeout(() => {
         const redirectUri = decodeURIComponent(this.$route.query.redirect_uri);
         const code = 'testcode';
-        window.location = `${redirectUri}?state=${this.$route.query.state}&code=${code}`;
+        if (/^http/.test(redirectUri)) {
+          window.location = `${redirectUri}?state=${this.$route.query.state}&code=${code}`;
+        } else {
+          this.$router.push(`${redirectUri}?state=${this.$route.query.state}&code=${code}`);
+        }
       }, 2000);
     },
   },

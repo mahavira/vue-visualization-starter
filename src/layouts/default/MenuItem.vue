@@ -3,7 +3,7 @@
       v-if="route.children && route.children.length">
       <template slot="title" :index="route.path">
         <i v-if="route.icon" :class="route.icon"></i>
-        <span slot='title'>{{route.title}}</span>
+        <span slot='title'> {{route.title}}</span>
       </template>
       <lx-menu-item v-for="item in route.children" :key="item.path" :route="item"></lx-menu-item>
     </el-submenu>
@@ -11,11 +11,11 @@
       v-else
       :index="route.path">
       <i v-if="route.icon" :class="route.icon"></i>
-      <span slot="title">{{route.title}}</span>
+      <span slot="title"> {{route.title}}</span>
     </el-menu-item>
 </template>
 <script>
-import { isExternal } from '../util';
+import { isExternal } from '../../util';
 
 export default {
   name: 'LxMenuItem',

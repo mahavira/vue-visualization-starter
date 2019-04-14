@@ -7,11 +7,10 @@
 </transition>
 </template>
 <script>
-import { SET_ATTR } from '../store/types';
-import ServiceList from '../views/common/ServiceList.vue';
-import MessageList from '../views/common/MessageList.vue';
-import Userinfo from '../views/common/Userinfo.vue';
-import Preference from '../views/common/Preference.vue';
+import ServiceList from './common/ServiceList.vue';
+import MessageList from './common/MessageList.vue';
+import Userinfo from './common/Userinfo.vue';
+import Preference from './common/Preference.vue';
 
 export default {
   name: 'LxCommonView',
@@ -34,7 +33,7 @@ export default {
     window.addEventListener('keyup', (e) => {
       if (e.keyCode === 27) {
         if (this.$store.state.commonView) {
-          this.$store.commit(SET_ATTR, {
+          this.$store.commit('SET_ATTR', {
             commonView: '',
           });
         }
