@@ -17,6 +17,14 @@ export default [
         component: () => import('./pages/Home.vue'),
       },
       {
+        path: 'fixed',
+        name: 'Fixed',
+        meta: {
+          title: 'Fixed',
+        },
+        component: () => import('./pages/Fixed.vue'),
+      },
+      {
         path: 'examples',
         name: 'examples',
         meta: {

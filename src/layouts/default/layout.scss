@@ -1,8 +1,8 @@
 $bg-color: #FFFFFF;
-$headerBgColor: #304156;
+$headerBgColor: #FFFFFF;
 $headerHeight: 52px;
-$asideBgColor: #304156;
-$asideSubBgColor: #1f2d3d;
+$asideBgColor: #eee;
+$asideSubBgColor: #eee;
 $mainBgColor: #FFF;
 
 .lx-container{
@@ -28,7 +28,7 @@ $mainBgColor: #FFF;
   height: $headerHeight;
   box-sizing: border-box;
   flex-shrink: 0;
-  color: #fff;
+  color: #333;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 0 3px 0 rgba(0, 0, 0, 0.44);
   z-index: 60;
   display: flex;

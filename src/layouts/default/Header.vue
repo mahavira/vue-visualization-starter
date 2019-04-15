@@ -55,7 +55,7 @@ export default {
   cursor: pointer;
   a{
     margin-left: 5px;
-    color: #AAA;
+    color: #333;
     transition: all 0.3s;
   }
   &:hover{

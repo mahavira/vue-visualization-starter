@@ -5,8 +5,8 @@
     :router="true"
     :default-active="$route.path"
     :collapse="collapsed"
-    text-color="#bfcbd9"
-    background-color="#304156">
+    text-color="#333"
+    background-color="#eee">
       <lx-menu-item v-for="item in menus"
       :key="item.path"
       :route="item"
