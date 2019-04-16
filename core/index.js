@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import ElementUI from 'element-ui';
-import { LOG_OPTS } from '../src/config';
+// import { LOG_OPTS } from '../src/config';
 import { requireContext } from './util';
 /**
  * 全局样式
@@ -29,11 +29,11 @@ import Permission from './lib/permission';
 /**
  * 日记管理
  */
-import Log from './lib/log';
+// import Log from './lib/log';
 /**
  * 日记管理
  */
-import Perf from './lib/perf';
+// import Perf from './lib/perf';
 /**
  * mock 数据
  */
@@ -41,8 +41,8 @@ import '../src/mock/';
 
 Vue.use(ElementUI);
 Vue.use(Permission, store);
-Vue.use(Log, LOG_OPTS);
-Vue.use(Perf);
+// Vue.use(Log, LOG_OPTS);
+// Vue.use(Perf);
 Vue.config.productionTip = false;
 
 

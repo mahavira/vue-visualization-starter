@@ -60,11 +60,11 @@ router.logout = async () => {
  * 路由前置守卫
  */
 router.beforeEach(async (to, from, next) => {
-  console.log(router, to);
+  // console.log(router, to);
   try {
     for (let i = 0; i < middlewares.length; i += 1) {
       let final = middlewares[i](router.app, to, from, next);
-      console.log(final, middlewares[i]);
+      // console.log(final, middlewares[i]);
       if (isPromise(final)) {
         final = await final;
         if (final === false) {

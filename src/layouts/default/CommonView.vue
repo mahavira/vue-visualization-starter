@@ -2,6 +2,9 @@
 <transition name="slide-down">
   <section class="lx-common-view" v-for="(view,key) in commonViews"
   :key="key" v-if="commonView==key">
+    <div class="common-view-close" @click="close">
+      <i class="el-icon-error"></i>
+    </div>
     <component :is="view"/>
   </section>
 </transition>
@@ -40,6 +43,25 @@ export default {
       }
     });
   },
+  methods: {
+    close() {
+      this.$store.commit('SET_ATTR', {
+        commonView: '',
+      });
+    },
+  },
 };
 </script>
-
+<style>
+.common-view-close{
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  color: #888;
+}
+</style>

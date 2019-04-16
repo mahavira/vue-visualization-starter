@@ -14,19 +14,71 @@ export default {
   },
   mounted() {
     this.chart = echarts.init(this.$refs.echart);
-    this.chart.setOption({
-    xAxis: {
-        type: 'category',
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    
+    this.chart.setOption(this.getOption());
+  },
+  methods: {
+    getOption() {
+      var xAxisData = [];
+      var data1 = [];
+      var data2 = [];
+      for (var i = 0; i < 100; i++) {
+          xAxisData.push('类目' + i);
+          data1.push((Math.sin(i / 5) * (i / 5 -10) + i / 6) * 5);
+          data2.push((Math.cos(i / 5) * (i / 5 -10) + i / 6) * 5);
+      }
+
+      return {
+          title: {
+              text: '柱状图动画延迟'
+          },
+          legend: {
+              data: ['bar', 'bar2'],
+              align: 'left'
+          },
+          toolbox: {
+              // y: 'bottom',
+              feature: {
+                  magicType: {
+                      type: ['stack', 'tiled']
+                  },
+                  dataView: {},
+                  saveAsImage: {
+                      pixelRatio: 2
+                  }
+              }
+          },
+          tooltip: {},
+          xAxis: {
+              data: xAxisData,
+              silent: false,
+              splitLine: {
+                  show: false
+              }
+          },
+          yAxis: {
+          },
+          series: [{
+              name: 'bar',
+              type: 'bar',
+              data: data1,
+              animationDelay: function (idx) {
+                  return idx * 10;
+              }
+          }, {
+              name: 'bar2',
+              type: 'bar',
+              data: data2,
+              animationDelay: function (idx) {
+                  return idx * 10 + 100;
+              }
+          }],
+          animationEasing: 'elasticOut',
+          animationDelayUpdate: function (idx) {
+              return idx * 5;
+          }
+      };
     },
-    yAxis: {
-        type: 'value'
-    },
-    series: [{
-        data: [820, 932, 901, 934, 1290, 1330, 1320],
-        type: 'line'
-    }]
-    });
   },
 };
 </script>
